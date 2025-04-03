@@ -39,18 +39,18 @@ void afisareBackground(){
     float h;
 } SDL_FRect;
 */
-    SDL_FRect dest = { 0.0f, 0.0f , 1150.0f, 700.0f}; // Full screen
+    SDL_FRect dest = { 0.0f, 0.0f , 1200.0f, 700.0f}; // Full screen
     if (!SDL_RenderTexture(renderer, background, NULL, &dest)) {
     SDL_Log("Failed to render background1: %s", SDL_GetError());
     }
     // Render the first background image
-    SDL_FRect dest1 = { 50.0f, 50.0f, 525.0f, 600.0f }; // Left half of the screen
+    SDL_FRect dest1 = { 50.0f, 50.0f, 550.0f, 550.0f }; // Left half of the screen
     if (!SDL_RenderTexture(renderer, background1, NULL, &dest1)) {
      SDL_Log("Failed to render background1: %s", SDL_GetError());
     }
     
      // Render the second background image
-    SDL_FRect dest2 = { 575.0f, 50.0f, 525.0f, 600.0f }; // Right half of the screen
+    SDL_FRect dest2 = { 600.0f, 50.0f, 550.0f, 550.0f }; // Right half of the screen
     if (!SDL_RenderTexture(renderer, background2, NULL, &dest2)) {
         SDL_Log("Failed to render background2: %s", SDL_GetError());
     }
