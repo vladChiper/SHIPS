@@ -15,7 +15,7 @@ typedef struct {
     int score;     // Punctajul jucătorului
     int ships[10][10];  // Lista de nave ale jucătorului (exemplu: 5 nave)
     int ships_counter;      // Numărul de lovituri primite
-    
+    int ships_destroyed;     // Numărul de nave distruse
     
 } Player_t ; // Structura pentru jucător
 

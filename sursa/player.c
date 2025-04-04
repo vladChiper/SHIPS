@@ -31,7 +31,7 @@ Player_t* initPlayer(const char* name) {
 // Funcția pentru plasarea unei nave
 int plasareNave(Player_t* player, float x, float y) {
     // Verifică dacă coordonatele sunt valide
-    if (x < 100.0f || x >= 500.0f || y < 100.0f || y >= 500.0f) {
+    if (x < 100.0f || x >= 650.0f || y < 100.0f || y >= 650.0f) {
         return -1; // Coordonate invalide
     }
     x -= 100.0f; // Ajustează coordonatele pentru a fi pe marginea pătratului de 50x50
@@ -41,7 +41,7 @@ int plasareNave(Player_t* player, float x, float y) {
     int gridX = ((int)x / 50) * 50; // Rotunjire la cel mai apropiat multiplu de 50
     int gridY = ((int)y / 50) * 50;
 
-    
+    player->ships_counter++; // Incrementăm contorul de nave plasate
 
     // Plasează nava în matricea jucătorului
     player->ships[gridX / 50][gridY / 50] = 1; // Împărțim la 50 pentru a obține indexul din matrice

@@ -4,6 +4,8 @@
 #include <SDL3_image/SDL_image.h>
 #include "map.h"
 #include "player.h"
+#include "procesari.h"
+#include "bot.h"
 
 SDL_Window* window;
 SDL_Renderer* renderer;
@@ -43,14 +45,16 @@ int main()
 
 
     player = initPlayer("Player");
+    bot = initBot();
    
-
+    afisareBackground();
     bool running = true;
     while(running)
     {
         SDL_Event event;
         while(SDL_PollEvent(&event))
         {
+            
             if (event.type == SDL_EVENT_QUIT)
             {
                 running = false;
@@ -58,25 +62,56 @@ int main()
             }
             if(SDL_EVENT_MOUSE_BUTTON_DOWN == event.type)
             {
-                SDL_Log("Mouse button pressed at (%f, %f)", event.button.x, event.button.y);
+                //SDL_Log("Mouse button pressed at (%f, %f)", event.button.x, event.button.y);
                 float x = event.button.x;
                 float y = event.button.y;
-                plasareNave(player, x, y);
-                for(int i = 0; i < 10; i++)
+                if (player ->ships_counter < NUMAR_NAVE)
                 {
-                    for(int j = 0; j < 10; j++)
+                    plasareNave(player, x, y);
+                    SDL_Log("Plasare nava la (%f, %f)", x, y);
+                    for(int i = 0; i < 10; i++)
                     {
-                        if(player->ships[i][j] == 1)
+                        for(int j = 0; j < 10; j++)
                         {
-                           
-                            SDL_Log("Ship placed at (%c, %d)", i + 'A' , j + 1);
+                            if(player->ships[i][j] == 1)
+                            {
+
+                                afisareBackground();
+                                plasareNaveVizual(j, i);
+                                // SDL_Log("Nava plasata la (%d, %d)", i, j);
+                            }
                         }
                     }
                 }
-            }
+                else
+                {
+                    if(procesareAtac(bot, x, y))
+                    {
+                        SDL_Log("Atac la (%f, %f)", x, y);
+                        //SDL_Log("Nava lovita la (%d, %d)", i, j);
+                        for(int i = 0; i < 10; i++)
+                        {
+                            for(int j = 0; j < 10; j++)
+                            {
+                                if(bot->ships[i][j] == 1)
+                                {
+                                    SDL_Log("Nava lovita la (%d, %d)", i, j);
+                                    afisareBackground();
+                                    plasareNaveVizualDistruseBot(j, i);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        SDL_Log("Atac ratat la (%f, %f)", x, y);
+                    }
 
+                }
         }
-        afisareBackground();
+            
+        }
+        
     }
      
 
