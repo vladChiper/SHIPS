@@ -48,11 +48,12 @@ int main()
     bot = initBot();
    
     afisareBackground();
-    SDL_RenderPresent(renderer);
     bool running = true;
     while(running)
     {
         SDL_Event event;
+        int playerWin = 0;
+        int botWin = 0;
         while(SDL_PollEvent(&event))
         {
             
@@ -77,48 +78,63 @@ int main()
                             if(player->ships[i][j] == 1)
                             {
 
-                                
-                                plasareNaveVizual(i, j);
-                                SDL_RenderPresent(renderer);
+                                afisareBackground();
+                                plasareNaveVizual(j, i);
                                 // SDL_Log("Nava plasata la (%d, %d)", i, j);
                             }
                         }
                     }
                 }
-                else
+                else if (bot-> ships_destroyed < NUMAR_NAVE)
                 {
                     if(procesareAtac(bot, x, y))
                     {
-                        SDL_Log("Atac la (%f, %f)", x, y);
-                        //SDL_Log("Nava lovita la (%d, %d)", i, j);
+                        // SDL_Log("Atac la (%f, %f)", x, y);
                         for(int i = 0; i < 10; i++)
                         {
                             for(int j = 0; j < 10; j++)
                             {
-                                if(bot->ships[i][j] == 1)
+                                if(bot->ships[i][j] == 2)
                                 {
-                                    SDL_Log("Nava lovita la (%d, %d)", i, j);
+                                    //SDL_Log("Nava lovita la (%d, %d)", i, j);
                                     afisareBackground();
                                     plasareNaveVizualDistruseBot(i, j);
+                                }
+                                else if(bot->ships[i][j] == -1)
+                                {
+                                    //SDL_Log("Nava ratata la (%d, %d)", i, j);
+                                    afisareBackground();
+                                    plasareAtacRatat(i, j);
                                 }
                             }
                         }
                     }
-                    else
-                    {
-                        SDL_Log("Atac ratat la (%f, %f)", x, y);
-                    }
-
+                }
+                else 
+                {
+                    playerWin = 1;
+                    SDL_Log("Player wins!");
+                    break;
                 }
             }
-            
         }
         
     }
-     
 
-SDL_DestroyRenderer(renderer);
-SDL_DestroyWindow(window);
-SDL_Quit();
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    
+    // Eliberăm memoria pentru player și bot
+    if (player != NULL) {
+        free(player);
+        player = NULL;
+    }
+    
+    if (bot != NULL) {
+        free(bot);
+        bot = NULL;
+    }
+    
+    SDL_Quit();
 
 }

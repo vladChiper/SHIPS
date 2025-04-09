@@ -29,7 +29,6 @@ void afisareBackground(){
         SDL_Quit();
     }
     // Clear the screen
-    SDL_RenderClear(renderer);
 
     /*typedef struct SDL_FRect
 {
@@ -56,4 +55,9 @@ void afisareBackground(){
     }
     // Present the renderer
     SDL_RenderPresent(renderer);
+
+    // Clean up
+    SDL_DestroyTexture(background);
+    SDL_DestroyTexture(background1);
+    SDL_DestroyTexture(background2);
 }

@@ -3,6 +3,6 @@
         "player.h": "c",
         "procesari.h": "c",
         "sdl_image.h": "c",
-        "sdl_main.h": "c"
+    
     }
 }
