@@ -48,6 +48,7 @@ int main()
     bot = initBot();
    
     afisareBackground();
+    SDL_RenderPresent(renderer);
     bool running = true;
     while(running)
     {
@@ -76,8 +77,9 @@ int main()
                             if(player->ships[i][j] == 1)
                             {
 
-                                afisareBackground();
-                                plasareNaveVizual(j, i);
+                                
+                                plasareNaveVizual(i, j);
+                                SDL_RenderPresent(renderer);
                                 // SDL_Log("Nava plasata la (%d, %d)", i, j);
                             }
                         }
@@ -97,7 +99,7 @@ int main()
                                 {
                                     SDL_Log("Nava lovita la (%d, %d)", i, j);
                                     afisareBackground();
-                                    plasareNaveVizualDistruseBot(j, i);
+                                    plasareNaveVizualDistruseBot(i, j);
                                 }
                             }
                         }
@@ -108,7 +110,7 @@ int main()
                     }
 
                 }
-        }
+            }
             
         }
         
