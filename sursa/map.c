@@ -61,3 +61,38 @@ void afisareBackground(){
     SDL_DestroyTexture(background1);
     SDL_DestroyTexture(background2);
 }
+
+void afisareWIN()
+{
+    SDL_Texture * image = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\youwin.png");
+    if (!image)
+    {
+        SDL_Log("Failed to load image: %s", SDL_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+    }
+    const SDL_FRect srcRect = { 0, 0 , 700, 300};  
+    const SDL_FRect dstRect = { 250.0f , 150.0f , 700, 300 };
+
+    SDL_RenderTexture(renderer, image, &srcRect, &dstRect);
+
+    SDL_Texture * retry = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\playagain.png");
+    if (!image)
+    {
+        SDL_Log("Failed to load image: %s", SDL_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+    }
+    const SDL_FRect srcRect1 = { 0, 0 , 100, 100};  
+    const SDL_FRect dstRect1 = { 550.0f , 450.0f , 100, 100 };
+
+    SDL_RenderTexture(renderer, retry, &srcRect1, &dstRect1);
+   
+    SDL_RenderPresent(renderer);
+
+    SDL_DestroyTexture(image); // Eliberăm textura după utilizare
+    SDL_DestroyTexture(retry); // Eliberăm textura după utilizare
+    
+}

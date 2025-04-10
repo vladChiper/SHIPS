@@ -8,6 +8,9 @@
 extern SDL_Window* window;
 extern SDL_Renderer* renderer;
 
+#define TILE_SIZE 50.0f
 
 // Declară funcțiile
 void afisareBackground();
+void plasareAtacRatat(float x, float y);
+void afisareWIN();

@@ -16,6 +16,7 @@ Player_t* initPlayer(const char* name) {
     // Inițializează punctajul și contorul de nave
     player->score = 0;
     player->ships_counter = 0;
+    player->ships_destroyed = 0; // Inițializăm contorul de nave distruse
 
     // Inițializează lista de nave (exemplu: 5 nave)
     for (int i = 0; i < 10; i++)
@@ -48,3 +49,4 @@ int plasareNave(Player_t* player, float x, float y) {
 
     return 0; // Plasare reușită
 }
+

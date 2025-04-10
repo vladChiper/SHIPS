@@ -2,6 +2,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 #include <SDL3_image/SDL_image.h>
+#include <time.h>
 #include "map.h"
 #include "player.h"
 #include "procesari.h"
@@ -15,6 +16,7 @@ Player_t * bot;
 
 int main()
 {
+    srand(time(NULL)); // Initializează generatorul de numere aleatoare
     if ( !(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)) )
     {
         SDL_Log("SDL_Init failed: %s", SDL_GetError());
@@ -85,12 +87,12 @@ int main()
                         }
                     }
                 }
-                else if (bot-> ships_destroyed < NUMAR_NAVE)
+                else if ( (bot->ships_destroyed < NUMAR_NAVE) && (player->ships_destroyed < NUMAR_NAVE) )
                 {
                     if(procesareAtac(bot, x, y))
                     {
                         // SDL_Log("Atac la (%f, %f)", x, y);
-                        for(int i = 0; i < 10; i++)
+                        for(int i = 0; i < 10; i++) // LOOP PT AFISAREA NAVELOR BOTILOR 
                         {
                             for(int j = 0; j < 10; j++)
                             {
@@ -108,13 +110,66 @@ int main()
                                 }
                             }
                         }
+                        atacBot(player);
+                        {
+                            for(int i = 0; i < 10; i++) 
+                            {
+                                for(int j = 0; j < 10; j++) // LOOP  pt nave player / atac bot
+                                {
+                                    if(player->ships[i][j] == 2)
+                                    {
+                                        //SDL_Log("Nava lovita la (%d, %d)", i, j);
+                                        afisareBackground();
+                                        plasareNaveVizualDistrusePlayer(i, j);
+                                    }
+                                    else if(player->ships[i][j] == -1)
+                                    {
+                                        //SDL_Log("Nava ratata la (%d, %d)", i, j);
+                                        afisareBackground();
+                                        plasareAtacRatatBot(i, j);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 else 
                 {
-                    playerWin = 1;
-                    SDL_Log("Player wins!");
-                    break;
+                    // verificam cine a castigat
+                    if (bot->ships_destroyed == NUMAR_NAVE) 
+                    {
+                        SDL_Log("Player a castigat!");
+                        afisareWIN();
+                    
+                        // Așteaptă apăsarea pe retry
+                        bool retrying = true;
+                        while (retrying) {
+                            while (SDL_PollEvent(&event)) {
+                                if (event.type == SDL_EVENT_QUIT) {
+                                    running = false;
+                                    retrying = false;
+                                    break;
+                                }
+                                if (SDL_EVENT_MOUSE_BUTTON_DOWN == event.type) {
+                                    float x = event.button.x;
+                                    float y = event.button.y;
+                    
+                                    if (retry(x, y)) { // Dacă utilizatorul apasă pe retry
+                                        player = initPlayer("Player");
+                                        bot = initBot(); // Reinitializează jocul
+                                        afisareBackground();
+                                        retrying = false; // Ieși din bucla de retry
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (player->ships_destroyed == NUMAR_NAVE)
+                    {
+                        botWin = 1;
+                        SDL_Log("Botul a castigat!");
+                    }
+                    
                 }
             }
         }
@@ -127,12 +182,11 @@ int main()
     // Eliberăm memoria pentru player și bot
     if (player != NULL) {
         free(player);
-        player = NULL;
+       
     }
     
     if (bot != NULL) {
         free(bot);
-        bot = NULL;
     }
     
     SDL_Quit();

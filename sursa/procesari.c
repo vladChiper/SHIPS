@@ -93,6 +93,8 @@ int procesareAtac(Player_t * bot, float x, float y)
         return 1; // Lovitură ratată
     }
 
-
-    
+}
+int retry(float x, float y)
+{
+    return (x > 550.0f && x < 650.0f && y > 450.0f && y < 550.0f); // Verifică dacă coordonatele sunt în interiorul butonului "Retry"
 }

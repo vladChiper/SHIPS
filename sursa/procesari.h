@@ -14,3 +14,5 @@ extern SDL_Renderer* renderer;
 void plasareNaveVizual(float x, float y);
 int procesareAtac(Player_t * bot, float x, float y);
 void plasareNaveVizualDistruseBot(float x, float y);
+void plasareAtacRatat(float x, float y);
+int retry(float x, float y);

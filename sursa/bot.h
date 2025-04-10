@@ -9,4 +9,9 @@
 extern SDL_Window* window;
 extern SDL_Renderer* renderer;
 
+#define TILE_SIZE 50.0f
+
 Player_t * initBot();
+void atacBot(Player_t * player);
+void plasareAtacRatatBot(float x, float y);
+void plasareNaveVizualDistrusePlayer(float x, float y);
