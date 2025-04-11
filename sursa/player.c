@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 // Funcția pentru inițializarea unui jucător
-Player_t* initPlayer(const char* name) {
+Player_t* initPlayer(const char* name, int score) {
     Player_t* player = (Player_t*)malloc(sizeof(Player_t));
     if (player == NULL) {
         return NULL; // Eșec la alocarea memoriei
@@ -14,7 +14,7 @@ Player_t* initPlayer(const char* name) {
     player->name[sizeof(player->name) - 1] = '\0'; // Asigură terminarea cu null
 
     // Inițializează punctajul și contorul de nave
-    player->score = 0;
+    player->score = score;
     player->ships_counter = 0;
     player->ships_destroyed = 0; // Inițializăm contorul de nave distruse
 

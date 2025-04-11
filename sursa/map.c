@@ -96,3 +96,71 @@ void afisareWIN()
     SDL_DestroyTexture(retry); // Eliberăm textura după utilizare
     
 }
+void afisareLOSE()
+{
+    SDL_Texture * image = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\youlose.png");
+    if (!image)
+    {
+        SDL_Log("Failed to load image: %s", SDL_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+    }
+    const SDL_FRect srcRect = { 0, 0 , 300, 300};  
+    const SDL_FRect dstRect = { 350.0f , 50.0f , 500, 500 };
+
+    SDL_RenderTexture(renderer, image, &srcRect, &dstRect);
+
+    SDL_Texture * retry = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\playagain.png");
+    if (!image)
+    {
+        SDL_Log("Failed to load image: %s", SDL_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+    }
+    const SDL_FRect srcRect1 = { 0, 0 , 100, 100};  
+    const SDL_FRect dstRect1 = { 550.0f , 450.0f , 100, 100 };
+
+    SDL_RenderTexture(renderer, retry, &srcRect1, &dstRect1);
+   
+    SDL_RenderPresent(renderer);
+
+    SDL_DestroyTexture(image); // Eliberăm textura după utilizare
+    SDL_DestroyTexture(retry); // Eliberăm textura după utilizare
+    
+}
+void afisareTIE()
+{
+    SDL_Texture * image = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\tie.png");
+    if (!image)
+    {
+        SDL_Log("Failed to load image: %s", SDL_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+    }
+    const SDL_FRect srcRect = { 0, 0 , 1700, 2800};  
+    const SDL_FRect dstRect = { 450.0f , 0.0f , 300, 500 };
+
+    SDL_RenderTexture(renderer, image, &srcRect, &dstRect);
+
+    SDL_Texture * retry = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\playagain.png");
+    if (!image)
+    {
+        SDL_Log("Failed to load image: %s", SDL_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+    }
+    const SDL_FRect srcRect1 = { 0, 0 , 100, 100};  
+    const SDL_FRect dstRect1 = { 550.0f , 450.0f , 100, 100 };
+
+    SDL_RenderTexture(renderer, retry, &srcRect1, &dstRect1);
+   
+    SDL_RenderPresent(renderer);
+
+    SDL_DestroyTexture(image); // Eliberăm textura după utilizare
+    SDL_DestroyTexture(retry); // Eliberăm textura după utilizare
+    
+}

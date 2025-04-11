@@ -22,6 +22,6 @@ typedef struct {
 
 // Declară funcțiile
 int plasareNave(Player_t * player, float x, float y);
-Player_t * initPlayer(const char * name);
+Player_t * initPlayer(const char * name, int score);
 void plasareAtacRatat(float x, float y);
 

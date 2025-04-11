@@ -14,3 +14,5 @@ extern SDL_Renderer* renderer;
 void afisareBackground();
 void plasareAtacRatat(float x, float y);
 void afisareWIN();
+void afisareLOSE();
+void afisareTIE();

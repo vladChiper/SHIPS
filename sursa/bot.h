@@ -11,7 +11,7 @@ extern SDL_Renderer* renderer;
 
 #define TILE_SIZE 50.0f
 
-Player_t * initBot();
+Player_t * initBot(int score);
 void atacBot(Player_t * player);
 void plasareAtacRatatBot(float x, float y);
 void plasareNaveVizualDistrusePlayer(float x, float y);

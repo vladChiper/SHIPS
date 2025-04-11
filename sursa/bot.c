@@ -1,9 +1,9 @@
 #include "bot.h"
 
-Player_t * initBot()
+Player_t * initBot(int score)
 {
     Player_t * bot;
-    bot = initPlayer("Bot");
+    bot = initPlayer("Bot", score);
     if (bot == NULL)
     {
         SDL_Log("Failed to initialize bot player: %s", SDL_GetError());
