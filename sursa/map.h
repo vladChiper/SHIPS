@@ -11,6 +11,8 @@ extern SDL_Renderer* renderer;
 #define TILE_SIZE 50.0f
 
 // Declară funcțiile
+int startGame(float x, float y); // returneaza 1 daca a fost apasat butonul
+void afisareStart();
 void afisareBackground();
 void plasareAtacRatat(float x, float y);
 void afisareWIN();

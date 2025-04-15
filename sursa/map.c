@@ -164,3 +164,29 @@ void afisareTIE()
     SDL_DestroyTexture(retry); // Eliberăm textura după utilizare
     
 }
+// afisare start
+void afisareStart()
+{
+    SDL_Texture * image = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\startbutton.png");
+    if (!image)
+    {
+        SDL_Log("Failed to load image: %s", SDL_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+    }
+    const SDL_FRect srcRect = { 0, 0 , 1200, 700};  
+    const SDL_FRect dstRect = { 0, 0 , 1200, 700 };
+
+    SDL_RenderTexture(renderer, image, &srcRect, &dstRect);
+
+   
+    SDL_RenderPresent(renderer);
+
+    SDL_DestroyTexture(image); // Eliberăm textura după utilizare
+}
+
+int startGame(float x, float y)
+{
+    return (x >= 400 && x <= 700 && y >= 200 && y <= 300); // returneaza 1 daca a fost apasat butonul
+}

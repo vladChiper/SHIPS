@@ -4,7 +4,7 @@
 void plasareNaveVizual(float x, float y)
 {
     //SDL_Log("Plasare nava vizual la (%f, %f)", x, y);
-    SDL_Texture * nava1 = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\Pixel-Art-Ship.png");
+    SDL_Texture * nava1 = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\ship.png");
     if (!nava1)
     {
         SDL_Log("Failed to load nava 1: %s", SDL_GetError());
@@ -12,7 +12,7 @@ void plasareNaveVizual(float x, float y)
         SDL_DestroyWindow(window);
         SDL_Quit();
     }
-    const SDL_FRect srcRect = { 0, 0 , 301, 312};  
+    const SDL_FRect srcRect = { 0, 0 , 780, 688};  
     const SDL_FRect dstRect = {  100.0f+ y* TILE_SIZE, 100.0f + x * TILE_SIZE, TILE_SIZE, TILE_SIZE };
 
     

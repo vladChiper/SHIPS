@@ -4,7 +4,7 @@
 #include <SDL3_image/SDL_image.h>
 
 
-#define NUMAR_NAVE 1 // Numărul de nave pentru fiecare jucător
+#define NUMAR_NAVE 5 // Numărul de nave pentru fiecare jucător
 
 // Declară variabilele globale
 extern SDL_Window* window;
