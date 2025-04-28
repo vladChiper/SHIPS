@@ -61,7 +61,7 @@ void plasareAtacRatatBot(float x, float y)
         SDL_Quit();
     }
     const SDL_FRect srcRect = { 64, 0 , 32, 32};  
-    const SDL_FRect dstRect = {100.0f + x * TILE_SIZE , 100.0f+ y* TILE_SIZE , TILE_SIZE, TILE_SIZE };
+    const SDL_FRect dstRect = { 2.00f*TILE_SIZE_W + x * TILE_SIZE_W , 2.00f*TILE_SIZE_H + y* TILE_SIZE_H , TILE_SIZE_W, TILE_SIZE_H };
 
     
     SDL_RenderTexture(renderer, image, &srcRect, &dstRect);
@@ -83,7 +83,7 @@ void plasareNaveVizualDistrusePlayer(float x, float y)
         SDL_Quit();
     }
     const SDL_FRect srcRect = { 96, 0 , 32, 32};  
-    const SDL_FRect dstRect = {100.0f + x * TILE_SIZE , 100.0f+ y* TILE_SIZE , TILE_SIZE, TILE_SIZE };
+    const SDL_FRect dstRect = { 2.00f*TILE_SIZE_W + x * TILE_SIZE_W , 2.00f*TILE_SIZE_H + y* TILE_SIZE_H , TILE_SIZE_W, TILE_SIZE_H };
 
     
     SDL_RenderTexture(renderer, nava1, &srcRect, &dstRect);
@@ -93,3 +93,46 @@ void plasareNaveVizualDistrusePlayer(float x, float y)
     SDL_DestroyTexture(nava1); // Eliberăm textura după utilizare
 
 }
+// void afisareImagineRandom(Player_t* player) {
+
+//     // Încarcă imaginea care va fi afișată
+//     SDL_Texture* image = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\Tokens.png");
+//     if (!image) {
+//         SDL_Log("Failed to load image: %s", SDL_GetError());
+//         SDL_SetRenderTarget(renderer, NULL); // Restaurează renderer-ul original
+//         return;
+//     }
+
+//     // Afișează imaginea de 5 ori în poziții aleatorii
+//     SDL_FRect dstRects[5];
+//     int x, y;
+//     int coords[5][2]; // Stocăm coordonatele pentru fiecare imagine
+//     for (int i = 0; i < 5; i++) {
+//         do {
+//             x = rand() % 10; // Coordonată aleatorie pe matricea player-ului
+//             y = rand() % 10;
+//         } while (player->ships[x][y] == 2 || player->ships[x][y] == -1); // Verificăm dacă nava este deja atacată
+
+//         coords[i][0] = x; // Salvăm coordonatele
+//         coords[i][1] = y;
+
+//         dstRects[i] = (SDL_FRect){2.00f * TILE_SIZE_W + x * TILE_SIZE_W, 2.00f * TILE_SIZE_H + y * TILE_SIZE_H, TILE_SIZE_W, TILE_SIZE_H};
+
+//         const SDL_FRect srcRect = {0, 0, 32, 32}; // Poziția din sprite sheet
+//         SDL_RenderTexture(renderer, image, &srcRect, &dstRects[i]);
+//         SDL_RenderPresent(renderer);
+
+//         SDL_Delay(500); // Așteaptă 500ms între afișări
+//     }
+
+//     // Alege o singură poziție dintre cele 5
+//     int selectedIndex = rand() % 5;
+//     int selectedX = coords[selectedIndex][0];
+//     int selectedY = coords[selectedIndex][1];
+
+//     // Eliberăm resursele
+//     SDL_DestroyTexture(image);
+
+//     // Apelează atacBot cu coordonatele selectate
+//     atacBot(player, (float)selectedX, (float)selectedY);
+// }

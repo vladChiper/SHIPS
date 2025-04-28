@@ -5,13 +5,14 @@
 
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
+#include "procesari.h"
 
 extern SDL_Window* window;
 extern SDL_Renderer* renderer;
 
-#define TILE_SIZE 50.0f
 
 Player_t * initBot(int score);
-void atacBot(Player_t * player);
+void atacBot(Player_t * player);  
 void plasareAtacRatatBot(float x, float y);
 void plasareNaveVizualDistrusePlayer(float x, float y);
+// void afisareImagineRandom(Player_t* player);

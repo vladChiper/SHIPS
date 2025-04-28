@@ -11,12 +11,14 @@
 SDL_Window* window;
 SDL_Renderer* renderer;
 
+
+
 Player_t * player;
 Player_t * bot;
 
 int main()
 {
-    //srand(time(NULL)); // Initializează generatorul de numere aleatoare
+    srand(time(NULL)); // Initializează generatorul de numere aleatoare
     if ( !(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)) )
     {
         SDL_Log("SDL_Init failed: %s", SDL_GetError());
@@ -24,9 +26,9 @@ int main()
     }
     window = SDL_CreateWindow(
         "BATTLESHIPS",          // Titlul ferestrei
-        1200,                   // Lățimea ferestrei
-        700,                   // Înălțimea ferestrei
-        0   // Opțiuni ale ferestrei
+        WIDTH,                   // Lățimea ferestrei
+        HEIGHT,                   // Înălțimea ferestrei
+        0    // Opțiuni ale ferestrei
     );
 
     SDL_SetWindowIcon(window, IMG_Load("assets\\Naval Battle Assets\\Pixel-Art-Ship.png"));
@@ -102,7 +104,7 @@ int main()
                             {
 
                                 afisareBackground();
-                                plasareNaveVizual(j, i);
+                                plasareNaveVizual(i, j);
                                 // SDL_Log("Nava plasata la (%d, %d)", i, j);
                             }
                         }
@@ -131,28 +133,36 @@ int main()
                                 }
                             }
                         }
-                        SDL_Delay(1000); // Așteaptă 1 secundă înainte de a continua
-                        atacBot(player);
+                        if (bot->ships_destroyed == NUMAR_NAVE){
+                            playerWin = 1;
+                        }
+                         // Așteaptă 1 secundă înainte de a continua
+                        if (playerWin == 0)
                         {
-                            for(int i = 0; i < 10; i++) 
+                            //SDL_Delay(1000);
+                            //afisareImagineRandom(player);
+                            atacBot(player);
+                        }
+        
+                        for(int i = 0; i < 10; i++) 
+                        {
+                            for(int j = 0; j < 10; j++) // LOOP  pt nave player / atac bot
                             {
-                                for(int j = 0; j < 10; j++) // LOOP  pt nave player / atac bot
+                                if(player->ships[i][j] == 2)
                                 {
-                                    if(player->ships[i][j] == 2)
-                                    {
-                                        //SDL_Log("Nava lovita la (%d, %d)", i, j);
-                                        afisareBackground();
-                                        plasareNaveVizualDistrusePlayer(i, j);
-                                    }
-                                    else if(player->ships[i][j] == -1)
-                                    {
-                                        //SDL_Log("Nava ratata la (%d, %d)", i, j);
-                                        afisareBackground();
-                                        plasareAtacRatatBot(i, j);
-                                    }
+                                    //SDL_Log("Nava lovita la (%d, %d)", i, j);
+                                    afisareBackground();
+                                    plasareNaveVizualDistrusePlayer(i, j);
+                                }
+                                else if(player->ships[i][j] == -1)
+                                {
+                                    //SDL_Log("Nava ratata la (%d, %d)", i, j);
+                                    afisareBackground();
+                                    plasareAtacRatatBot(i, j);
                                 }
                             }
                         }
+                        
                     }
                 }
                 else 

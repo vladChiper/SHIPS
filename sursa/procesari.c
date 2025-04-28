@@ -13,7 +13,7 @@ void plasareNaveVizual(float x, float y)
         SDL_Quit();
     }
     const SDL_FRect srcRect = { 0, 0 , 780, 688};  
-    const SDL_FRect dstRect = {  100.0f+ y* TILE_SIZE, 100.0f + x * TILE_SIZE, TILE_SIZE, TILE_SIZE };
+    const SDL_FRect dstRect = {  2*TILE_SIZE_W + x* TILE_SIZE_W, 2*TILE_SIZE_H + y * TILE_SIZE_H, TILE_SIZE_W, TILE_SIZE_H };
 
     
     SDL_RenderTexture(renderer, nava1, &srcRect, &dstRect);
@@ -34,7 +34,7 @@ void plasareNaveVizualDistruseBot(float x, float y)
         SDL_Quit();
     }
     const SDL_FRect srcRect = { 96, 0 , 32, 32};  
-    const SDL_FRect dstRect = {650.0f + x * TILE_SIZE , 100.0f+ y* TILE_SIZE , TILE_SIZE, TILE_SIZE };
+    const SDL_FRect dstRect = {1 + 13*TILE_SIZE_W + x * TILE_SIZE_W , 2*TILE_SIZE_H+ y* TILE_SIZE_H , TILE_SIZE_W, TILE_SIZE_H };
 
     
     SDL_RenderTexture(renderer, nava1, &srcRect, &dstRect);
@@ -55,7 +55,7 @@ void plasareAtacRatat(float x, float y)
         SDL_Quit();
     }
     const SDL_FRect srcRect = { 64, 0 , 32, 32};  
-    const SDL_FRect dstRect = {650.0f + x * TILE_SIZE , 100.0f+ y* TILE_SIZE , TILE_SIZE, TILE_SIZE };
+    const SDL_FRect dstRect = {13*TILE_SIZE_W + x * TILE_SIZE_W , 2*TILE_SIZE_H+ y* TILE_SIZE_H , TILE_SIZE_W, TILE_SIZE_H };
 
     
     SDL_RenderTexture(renderer, image, &srcRect, &dstRect);
@@ -66,35 +66,8 @@ void plasareAtacRatat(float x, float y)
 
 }
 
-int procesareAtac(Player_t * bot, float x, float y)
-{
-    // Verifică dacă coordonatele sunt valide
-    if (x < 649.0f || x >= 1150.0f || y < 100.0f || y >= 650.0f) {
-        return 0; // Coordonate invalide
-    }
-    SDL_Log("Coordonate valide pentru atac: (%f, %f)", x, y);
-    x -= 650.0f; // Ajustează coordonatele pentru a fi pe marginea pătratului de 50x50
-    y -= 100.0f; // Ajustează coordonatele pentru a fi pe marginea pătratului de 50x50
 
-    // Ajustează coordonatele pentru a fi pe marginea pătratului de 50x50
-    int gridX = ((int)x / 50); // Rotunjire la cel mai apropiat multiplu de 50
-    int gridY = ((int)y / 50);
-
-    SDL_Log("Coordonate ajustate pentru atac: (%d, %d)", gridX, gridY);
-
-    if(bot->ships[gridX][gridY] == 1) // Dacă nava este lovită
-    {
-        bot->ships[gridX][gridY] = 2; // Elimină nava din matrice
-        bot->ships_destroyed++ ; // Decrementăm contorul de nave plasate
-        return 1; // Lovitură reușită
-    }
-    else{
-        bot->ships[gridX][gridY] = -1; // atac ratat
-        return 1; // Lovitură ratată
-    }
-
-}
 int retry(float x, float y)
 {
-    return (x > 550.0f && x < 650.0f && y > 450.0f && y < 550.0f); // Verifică dacă coordonatele sunt în interiorul butonului "Retry"
+    return (x > 11*TILE_SIZE_W && x < 13*TILE_SIZE_W && y > 9*TILE_SIZE_H && y < 11*TILE_SIZE_H); // Verifică dacă coordonatele sunt în interiorul butonului "Retry"
 }

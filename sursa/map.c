@@ -1,6 +1,7 @@
 #include "map.h"
 
 void afisareBackground(){
+    SDL_RenderClear(renderer);
     SDL_Texture * background = IMG_LoadTexture(renderer, "assets/Naval Battle Assets/bground.png");
     if (!background)
     {
@@ -38,18 +39,18 @@ void afisareBackground(){
     float h;
 } SDL_FRect;
 */
-    SDL_FRect dest = { 0.0f, 0.0f , 1200.0f, 700.0f}; // Full screen
+    SDL_FRect dest = { 0.0f, 0.0f , WIDTH, HEIGHT}; // Full screen
     if (!SDL_RenderTexture(renderer, background, NULL, &dest)) {
     SDL_Log("Failed to render background1: %s", SDL_GetError());
     }
     // Render the first background image
-    SDL_FRect dest1 = { 50.0f, 50.0f, 550.0f, 550.0f }; // Left half of the screen
+    SDL_FRect dest1 = { TILE_SIZE_W, TILE_SIZE_H, 11*TILE_SIZE_W, 11*TILE_SIZE_H }; // Left half of the screen
     if (!SDL_RenderTexture(renderer, background1, NULL, &dest1)) {
      SDL_Log("Failed to render background1: %s", SDL_GetError());
     }
     
      // Render the second background image
-    SDL_FRect dest2 = { 600.0f, 50.0f, 550.0f, 550.0f }; // Right half of the screen
+    SDL_FRect dest2 = { 12*TILE_SIZE_W, TILE_SIZE_H, 11*TILE_SIZE_W, 11*TILE_SIZE_H }; // Right half of the screen
     if (!SDL_RenderTexture(renderer, background2, NULL, &dest2)) {
         SDL_Log("Failed to render background2: %s", SDL_GetError());
     }
@@ -73,7 +74,7 @@ void afisareWIN()
         SDL_Quit();
     }
     const SDL_FRect srcRect = { 0, 0 , 700, 300};  
-    const SDL_FRect dstRect = { 250.0f , 150.0f , 700, 300 };
+    const SDL_FRect dstRect = { 5*TILE_SIZE_W , 3*TILE_SIZE_H , 14*TILE_SIZE_W, 6*TILE_SIZE_H };
 
     SDL_RenderTexture(renderer, image, &srcRect, &dstRect);
 
@@ -86,7 +87,7 @@ void afisareWIN()
         SDL_Quit();
     }
     const SDL_FRect srcRect1 = { 0, 0 , 100, 100};  
-    const SDL_FRect dstRect1 = { 550.0f , 450.0f , 100, 100 };
+    const SDL_FRect dstRect1 = { 11*TILE_SIZE_W , 9*TILE_SIZE_H , 2*TILE_SIZE_W, 2*TILE_SIZE_H };
 
     SDL_RenderTexture(renderer, retry, &srcRect1, &dstRect1);
    
@@ -107,7 +108,7 @@ void afisareLOSE()
         SDL_Quit();
     }
     const SDL_FRect srcRect = { 0, 0 , 300, 300};  
-    const SDL_FRect dstRect = { 350.0f , 50.0f , 500, 500 };
+    const SDL_FRect dstRect = { 7*TILE_SIZE_W , TILE_SIZE_H , 10*TILE_SIZE_W, 10*TILE_SIZE_H };
 
     SDL_RenderTexture(renderer, image, &srcRect, &dstRect);
 
@@ -120,7 +121,7 @@ void afisareLOSE()
         SDL_Quit();
     }
     const SDL_FRect srcRect1 = { 0, 0 , 100, 100};  
-    const SDL_FRect dstRect1 = { 550.0f , 450.0f , 100, 100 };
+    const SDL_FRect dstRect1 = { 11*TILE_SIZE_W , 9*TILE_SIZE_H , 2*TILE_SIZE_W, 2*TILE_SIZE_H };
 
     SDL_RenderTexture(renderer, retry, &srcRect1, &dstRect1);
    
@@ -141,7 +142,7 @@ void afisareTIE()
         SDL_Quit();
     }
     const SDL_FRect srcRect = { 0, 0 , 1700, 2800};  
-    const SDL_FRect dstRect = { 450.0f , 0.0f , 300, 500 };
+    const SDL_FRect dstRect = { 9*TILE_SIZE_W , 0 , 6*TILE_SIZE_W, 10*TILE_SIZE_H };
 
     SDL_RenderTexture(renderer, image, &srcRect, &dstRect);
 
@@ -154,7 +155,7 @@ void afisareTIE()
         SDL_Quit();
     }
     const SDL_FRect srcRect1 = { 0, 0 , 100, 100};  
-    const SDL_FRect dstRect1 = { 550.0f , 450.0f , 100, 100 };
+    const SDL_FRect dstRect1 = { 11*TILE_SIZE_W , 9*TILE_SIZE_H , 2*TILE_SIZE_W, 2*TILE_SIZE_H };
 
     SDL_RenderTexture(renderer, retry, &srcRect1, &dstRect1);
    
@@ -164,7 +165,6 @@ void afisareTIE()
     SDL_DestroyTexture(retry); // Eliberăm textura după utilizare
     
 }
-// afisare start
 void afisareStart()
 {
     SDL_Texture * image = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\startbutton.png");
@@ -176,7 +176,7 @@ void afisareStart()
         SDL_Quit();
     }
     const SDL_FRect srcRect = { 0, 0 , 1200, 700};  
-    const SDL_FRect dstRect = { 0, 0 , 1200, 700 };
+    const SDL_FRect dstRect = { 0, 0 , WIDTH, HEIGHT };
 
     SDL_RenderTexture(renderer, image, &srcRect, &dstRect);
 
@@ -188,5 +188,46 @@ void afisareStart()
 
 int startGame(float x, float y)
 {
-    return (x >= 400 && x <= 700 && y >= 200 && y <= 300); // returneaza 1 daca a fost apasat butonul
+    return (x >= 8*TILE_SIZE_W && x <= 14*TILE_SIZE_W && y >= 4*TILE_SIZE_H && y <= 6*TILE_SIZE_H); // returneaza 1 daca a fost apasat butonul
+}
+
+void afisareBackground1(){
+    SDL_RenderClear(renderer);
+    SDL_Texture * background = IMG_LoadTexture(renderer, "assets/Naval Battle Assets/bground.png");
+    if (!background)
+    {
+        SDL_Log("Failed to load background: %s", SDL_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+    }
+    SDL_Texture * background1 = IMG_LoadTexture(renderer, "assets/Naval Battle Assets/oceangrid_final.png");
+    if (!background1)
+    {
+        SDL_Log("Failed to load background1: %s", SDL_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+    }
+
+    
+    // Clear the screen
+
+    SDL_FRect dest = { 0.0f, 0.0f , WIDTH, HEIGHT}; // Full screen
+    if (!SDL_RenderTexture(renderer, background, NULL, &dest)) {
+    SDL_Log("Failed to render background1: %s", SDL_GetError());
+    }
+    // Render the first background image
+    SDL_FRect dest1 = { 6.5*TILE_SIZE_W, TILE_SIZE_H, 11*TILE_SIZE_W, 11*TILE_SIZE_H }; // Left half of the screen
+    if (!SDL_RenderTexture(renderer, background1, NULL, &dest1)) {
+     SDL_Log("Failed to render background1: %s", SDL_GetError());
+    }
+    
+     // Render the second background image
+    // Present the renderer
+    SDL_RenderPresent(renderer);
+
+    // Clean up
+    SDL_DestroyTexture(background);
+    SDL_DestroyTexture(background1);
 }

@@ -2,14 +2,13 @@
 
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
+#include "procesari.h"
 
-
-#define NUMAR_NAVE 5 // Numărul de nave pentru fiecare jucător
+#define NUMAR_NAVE 1 // Numărul de nave pentru fiecare jucător
 
 // Declară variabilele globale
 extern SDL_Window* window;
 extern SDL_Renderer* renderer;
-
 
 typedef struct {
     char name[50]; // Numele jucătorului
@@ -24,4 +23,4 @@ typedef struct {
 int plasareNave(Player_t * player, float x, float y);
 Player_t * initPlayer(const char * name, int score);
 void plasareAtacRatat(float x, float y);
-
+int procesareAtac(Player_t * bot, float x, float y);
