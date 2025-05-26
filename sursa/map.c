@@ -2,7 +2,7 @@
 
 void afisareBackground(){
     SDL_RenderClear(renderer);
-    SDL_Texture * background = IMG_LoadTexture(renderer, "assets/Naval Battle Assets/bground.png");
+    SDL_Texture * background = IMG_LoadTexture(renderer, "assets/Naval Battle Assets/marebg.png");
     if (!background)
     {
         SDL_Log("Failed to load background: %s", SDL_GetError());
@@ -65,7 +65,7 @@ void afisareBackground(){
 
 void afisareWIN()
 {
-    SDL_Texture * image = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\youwin.png");
+    SDL_Texture * image = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\winpage.png");
     if (!image)
     {
         SDL_Log("Failed to load image: %s", SDL_GetError());
@@ -73,33 +73,19 @@ void afisareWIN()
         SDL_DestroyWindow(window);
         SDL_Quit();
     }
-    const SDL_FRect srcRect = { 0, 0 , 700, 300};  
-    const SDL_FRect dstRect = { 5*TILE_SIZE_W , 3*TILE_SIZE_H , 14*TILE_SIZE_W, 6*TILE_SIZE_H };
+    const SDL_FRect srcRect = { 0, 0 , 1536, 1024};  
+    const SDL_FRect dstRect = { 0 , 0 , WIDTH, HEIGHT };
 
     SDL_RenderTexture(renderer, image, &srcRect, &dstRect);
 
-    SDL_Texture * retry = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\playagain.png");
-    if (!image)
-    {
-        SDL_Log("Failed to load image: %s", SDL_GetError());
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-    }
-    const SDL_FRect srcRect1 = { 0, 0 , 100, 100};  
-    const SDL_FRect dstRect1 = { 11*TILE_SIZE_W , 9*TILE_SIZE_H , 2*TILE_SIZE_W, 2*TILE_SIZE_H };
-
-    SDL_RenderTexture(renderer, retry, &srcRect1, &dstRect1);
-   
     SDL_RenderPresent(renderer);
 
     SDL_DestroyTexture(image); // Eliberăm textura după utilizare
-    SDL_DestroyTexture(retry); // Eliberăm textura după utilizare
     
 }
 void afisareLOSE()
 {
-    SDL_Texture * image = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\youlose.png");
+    SDL_Texture * image = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\losepage.png");
     if (!image)
     {
         SDL_Log("Failed to load image: %s", SDL_GetError());
@@ -107,28 +93,13 @@ void afisareLOSE()
         SDL_DestroyWindow(window);
         SDL_Quit();
     }
-    const SDL_FRect srcRect = { 0, 0 , 300, 300};  
-    const SDL_FRect dstRect = { 7*TILE_SIZE_W , TILE_SIZE_H , 10*TILE_SIZE_W, 10*TILE_SIZE_H };
+    const SDL_FRect srcRect = { 0, 0 , 1536, 1024};  
+    const SDL_FRect dstRect = { 0, 0 , WIDTH, HEIGHT };
 
     SDL_RenderTexture(renderer, image, &srcRect, &dstRect);
-
-    SDL_Texture * retry = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\playagain.png");
-    if (!image)
-    {
-        SDL_Log("Failed to load image: %s", SDL_GetError());
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-    }
-    const SDL_FRect srcRect1 = { 0, 0 , 100, 100};  
-    const SDL_FRect dstRect1 = { 11*TILE_SIZE_W , 9*TILE_SIZE_H , 2*TILE_SIZE_W, 2*TILE_SIZE_H };
-
-    SDL_RenderTexture(renderer, retry, &srcRect1, &dstRect1);
-   
     SDL_RenderPresent(renderer);
 
     SDL_DestroyTexture(image); // Eliberăm textura după utilizare
-    SDL_DestroyTexture(retry); // Eliberăm textura după utilizare
     
 }
 void afisareTIE()
@@ -167,7 +138,7 @@ void afisareTIE()
 }
 void afisareStart()
 {
-    SDL_Texture * image = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\startbutton.png");
+    SDL_Texture * image = IMG_LoadTexture(renderer, "assets\\Naval Battle Assets\\startmenu.png");
     if (!image)
     {
         SDL_Log("Failed to load image: %s", SDL_GetError());
@@ -175,7 +146,7 @@ void afisareStart()
         SDL_DestroyWindow(window);
         SDL_Quit();
     }
-    const SDL_FRect srcRect = { 0, 0 , 1200, 700};  
+    const SDL_FRect srcRect = { 0, 0 ,1536, 1024};  
     const SDL_FRect dstRect = { 0, 0 , WIDTH, HEIGHT };
 
     SDL_RenderTexture(renderer, image, &srcRect, &dstRect);
@@ -188,7 +159,7 @@ void afisareStart()
 
 int startGame(float x, float y)
 {
-    return (x >= 8*TILE_SIZE_W && x <= 14*TILE_SIZE_W && y >= 4*TILE_SIZE_H && y <= 6*TILE_SIZE_H); // returneaza 1 daca a fost apasat butonul
+    return (x >= 0.4*WIDTH && x <= 0.66*WIDTH && y >= 0.6*HEIGHT && y <= 0.75*  HEIGHT); // returneaza 1 daca a fost apasat butonul
 }
 
 void afisareBackground1(){

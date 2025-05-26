@@ -7,6 +7,7 @@
 #include "player.h"
 #include "procesari.h"
 #include "bot.h"
+#include "text.h"
 
 SDL_Window* window;
 SDL_Renderer* renderer;
@@ -18,7 +19,7 @@ Player_t * bot;
 
 int main()
 {
-    srand(time(NULL)); // Initializează generatorul de numere aleatoare
+    //srand(time(NULL)); // Initializează generatorul de numere aleatoare
     if ( !(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)) )
     {
         SDL_Log("SDL_Init failed: %s", SDL_GetError());
@@ -47,35 +48,47 @@ int main()
         return SDL_APP_FAILURE;
     }
 
+    
+    // if (TTF_Init() == -1) {
+    //     SDL_Log( "Eroare la initializarea SDL_ttf: %s\n", SDL_GetError());
+    //     exit(1);
+    // }
+    // TTF_Font* font = TTF_OpenFont("assets\\Naval Battle Assets\\font\\font.ttf", 24);
+    // if (!font) {
+    //     SDL_Log("Eroare la deschiderea fontului: %s\n", SDL_GetError());
+    //     exit(1);
+    // }
+
 
     player = initPlayer("Player", 0);
+    char playerName[50];
     bot = initBot(0);
    
     afisareStart();
-    do{
+    do {
         SDL_Event event;
         SDL_PollEvent(&event);
-        if (event.type == SDL_EVENT_QUIT)
-        {
+        if (event.type == SDL_EVENT_QUIT) {
             SDL_Log("Quit event received");
             break;
         }
-        if(SDL_EVENT_MOUSE_BUTTON_DOWN == event.type)
-        {
-        //SDL_Log("Mouse button pressed at (%f, %f)", event.button.x, event.button.y);
+        if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
             float x = event.button.x;
             float y = event.button.y;
-            if (startGame(x, y) == 1)
-            {
+            if (startGame(x, y) == 1) {
                 afisareBackground();
+                player = initPlayer(playerName, 0); // Reinitializează jucătorul cu numele introdus
+                // Introducerea numelui jucătorului
+
                 break;
             }
         }
-    }while(1); 
+    } while (1);
 
     bool running = true;
     while(running)
     {
+        //afisarePlaceYourShips(renderer, NULL, 0);
         SDL_Event event;
         int playerWin = 0;
         int botWin = 0;
@@ -95,7 +108,7 @@ int main()
                 if (player ->ships_counter < NUMAR_NAVE)
                 {
                     plasareNave(player, x, y);
-                    SDL_Log("Plasare nava la (%f, %f)", x, y);
+                    // SDL_Log("Plasare nava la (%f, %f)", x, y);
                     for(int i = 0; i < 10; i++)
                     {
                         for(int j = 0; j < 10; j++)
@@ -162,17 +175,11 @@ int main()
                                 }
                             }
                         }
-                        
-                    }
-                }
-                else 
-                {
-                    // verificam cine a castigat
                     if (bot->ships_destroyed == NUMAR_NAVE && player->ships_destroyed < NUMAR_NAVE)
                     {
                         playerWin = 1;
                         botWin = 0;
-                        SDL_Log("Player a castigat!");
+                        SDL_RenderClear(renderer);
                         afisareWIN();
                         player->score += 1;
                     
@@ -188,12 +195,22 @@ int main()
                                 if (SDL_EVENT_MOUSE_BUTTON_DOWN == event.type) {
                                     float x = event.button.x;
                                     float y = event.button.y;
-                    
-                                    if (retry(x, y)) { // Dacă utilizatorul apasă pe retry
-                                        player = initPlayer("Player", player->score);
-                                        bot = initBot(bot->score); // Reinitializează jocul
-                                        afisareBackground();
-                                        retrying = false; // Ieși din bucla de retry
+                                    
+                                    switch(retry(x, y)) {
+                                        case 1: // Dacă utilizatorul apasă pe retry
+                                            player = initPlayer("Player", player->score);
+                                            bot = initBot(bot->score); // Reinitializează jocul
+                                            afisareBackground();
+                                            retrying = false; // Ieși din bucla de retry
+                                            break;
+                                        case 2: // Dacă utilizatorul apasă pe quit
+                                            running = false;
+                                            retrying = false;
+                                            break;
+                                        // case 3: // daca jucatorul apasa pe leaderboard
+                                        //     SDL_Log("Scorul jucătorului: %d", player->score);
+                                        //     afisareScor(renderer, font, player->score, bot->score);
+                                        //     break;
                                     }
                                 }
                             }
@@ -203,7 +220,7 @@ int main()
                     {
                         playerWin = 0;
                         botWin = 1;
-                        SDL_Log("bot a castigat!");
+                        SDL_RenderClear(renderer);
                         afisareLOSE();
                         bot->score += 1;
                     
@@ -220,45 +237,29 @@ int main()
                                     float x = event.button.x;
                                     float y = event.button.y;
                     
-                                    if (retry(x, y)) { // Dacă utilizatorul apasă pe retry
-                                        player = initPlayer("Player", player->score);
-                                        bot = initBot(bot->score); // Reinitializează jocul
-                                        afisareBackground();
-                                        retrying = false; // Ieși din bucla de retry
+                                    switch(retry(x, y)) {
+                                        case 1: // Dacă utilizatorul apasă pe retry
+                                            player = initPlayer("Player", player->score);
+                                            bot = initBot(bot->score); // Reinitializează jocul
+                                            afisareBackground();
+                                            retrying = false; // Ieși din bucla de retry
+                                            break;
+                                        case 2: // Dacă utilizatorul apasă pe quit
+                                            running = false;
+                                            retrying = false;
+                                            break;
+                                        // case 3: // daca jucatorul apasa pe leaderboard
+                                        //     afisareScor(renderer, font, player->score, bot->score);
+                                        //     SDL_RenderPresent(renderer);
+                                        //     break;
                                     }
+
                                 }
                             }
                         }
                     }
-                    else if (player->ships_destroyed == NUMAR_NAVE && bot->ships_destroyed == NUMAR_NAVE)
-                    {
-                        SDL_Log("EGALITATE!");
-                        afisareTIE();
-                    
-                        // Așteaptă apăsarea pe retry
-                        bool retrying = true;
-                        while (retrying) {
-                            while (SDL_PollEvent(&event)) {
-                                if (event.type == SDL_EVENT_QUIT) {
-                                    running = false;
-                                    retrying = false;
-                                    break;
-                                }
-                                if (SDL_EVENT_MOUSE_BUTTON_DOWN == event.type) {
-                                    float x = event.button.x;
-                                    float y = event.button.y;
-                    
-                                    if (retry(x, y)) { // Dacă utilizatorul apasă pe retry
-                                        player = initPlayer("Player", player->score);
-                                        bot = initBot(bot->score); // Reinitializează jocul
-                                        afisareBackground();
-                                        retrying = false; // Ieși din bucla de retry
-                                    }
-                                }
-                            }
-                        }
+                        
                     }
-                    
                 }
             }
         }
@@ -279,6 +280,7 @@ int main()
         free(bot);
     }
     
+    // TTF_Quit();
     SDL_Quit();
 
 }

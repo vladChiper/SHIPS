@@ -40,12 +40,12 @@ void atacBot(Player_t * player)
     {
         player->ships[(int)x][(int)y] = 2; // Marchează nava ca fiind lovită
         player->ships_destroyed++; // Incrementăm contorul de nave distruse
-        SDL_Log("Bot hit ship at (%d, %d)", (int)x, (int)y);
+        //SDL_Log("Bot hit ship at (%d, %d)", (int)x, (int)y);
     }
     else
     {
         player->ships[(int)x][(int)y] = -1; // Marchează atacul ca ratat
-        SDL_Log("Bot missed attack at (%d, %d)", (int)x, (int)y);
+        //SDL_Log("Bot missed attack at (%d, %d)", (int)x, (int)y);
     }
 
 }
