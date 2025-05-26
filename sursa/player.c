@@ -44,9 +44,14 @@ int plasareNave(Player_t* player, float x, float y) {
     int gridX = ((int)x / latime); // Rotunjire la cel mai apropiat multiplu de 50
     int gridY = ((int)y / inaltime) ;
 
+    if (player->ships[gridX][gridY] != 0) {
+        return -2; // Nava deja plasată în această poziție
+    }
+    
     player->ships_counter++; // Incrementăm contorul de nave plasate
 
     // Plasează nava în matricea jucătorului
+    
     player->ships[gridX][gridY] = 1; // Împărțim la 50 pentru a obține indexul din matrice
 
     return 0; // Plasare reușită

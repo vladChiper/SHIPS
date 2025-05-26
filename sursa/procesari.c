@@ -70,15 +70,15 @@ void plasareAtacRatat(float x, float y)
 int retry(float x, float y)
 {
     if(y > 0.79 * HEIGHT && y < 0.91 * HEIGHT){
-        if(x > 0.12*WIDTH && x < 0.31*WIDTH) // Verifică dacă coordonatele sunt în interiorul butonului "Retry"
+        if(x > 0.12 * WIDTH && x < 0.31 * WIDTH) // Verifică dacă coordonatele sunt în interiorul butonului "Retry"
         {
             return 1; // Returnează 1 pentru a indica că utilizatorul a apăsat pe butonul "Retry"
         }
-        if( x > 0.64 * WIDTH && x < 0.87 * WIDTH) // Verifică dacă coordonatele sunt în interiorul butonului "Retry"
+        if( x > 0.64 * WIDTH && x < 0.87 * WIDTH) // Verifică dacă coordonatele sunt în interiorul butonului "exit"
         {
             return 2; // Returnează 2 pentru a indica că utilizatorul a apăsat pe butonul "exit"
         }
-        if( x > 0.35 * WIDTH && x < 0.61 * WIDTH) // Verifică dacă coordonatele sunt în interiorul butonului "Retry"
+        if( x > 0.35 * WIDTH && x < 0.61 * WIDTH) // Verifică dacă coordonatele sunt în interiorul butonului "Leaderboard"
         {
             return 3; // Returnează 3 pentru a indica că utilizatorul a apăsat pe butonul "Leaderboard"
         }
